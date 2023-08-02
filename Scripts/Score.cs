@@ -10,7 +10,7 @@ public class Score : MonoBehaviour
     public TextMeshProUGUI lastScore;
     public TextMeshProUGUI lastScore2;
     public float score;
-    public float saniyedeliArtis;
+    public float increasePerSecond;
 
 
 
@@ -19,7 +19,7 @@ public class Score : MonoBehaviour
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         score = 0f;
-        saniyedeliArtis = 5f;
+        increasePerSecond = 5f;
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class Score : MonoBehaviour
         if(playerControllerScript.gameOver == false)
         {
             scoreTxet.text = (int)score + " ";
-        score += saniyedeliArtis * Time.deltaTime;
+        score += increasePerSecond * Time.deltaTime;
         }
         if(score > PlayerPrefs.GetInt("_highScore"))
         {
@@ -37,10 +37,10 @@ public class Score : MonoBehaviour
         if(playerControllerScript.gameOver == false)
         {
             lastScore.text = (int)score + " ";
-        score += saniyedeliArtis * Time.deltaTime;
+        score += increasePerSecond * Time.deltaTime;
         
         lastScore2.text = (int)score + " ";
-        score+= saniyedeliArtis * Time.deltaTime;
+        score+= increasePerSecond * Time.deltaTime;
         }
     }
 }

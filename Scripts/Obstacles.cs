@@ -22,14 +22,14 @@ public class Obstacles : MonoBehaviour
 
     }
 
-    void DestroyRange()  // Objenin z ekseni kenardan (-20.0f) küçük olursa, obje yok olsun.
+    void DestroyRange()  //If the object's z-axis is less than the edge (-20.0f), let the object disappear
     {
         if(transform.position.z < kenar) 
         {
             Destroy(gameObject);
         }
     }
-    void MoveForward()  // Oyun bitmediği süre boyunca obje ileri doğru gitsin.
+    void MoveForward()  // During the game is not over, let the object move forward
     {
         if(playerControllerscript.gameOver == false)
         {

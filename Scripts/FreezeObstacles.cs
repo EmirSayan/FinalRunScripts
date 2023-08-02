@@ -17,7 +17,7 @@ public class FreezeObstacles : MonoBehaviour
     {
         if(playerController.gameOver == true)
         {
-            obstacleRb.constraints = RigidbodyConstraints.FreezeAll; // Oyun bittiğinde Engellerin konumu kilitlensin (Hareket edemesin) 
+            obstacleRb.constraints = RigidbodyConstraints.FreezeAll; // When the game is over, lock the positions of the obstacles (prevent them from moving).
         }
     }
 }

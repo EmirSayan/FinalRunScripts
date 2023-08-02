@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-   private float kenar = -20.0f;
+   private float bound = -20.0f;
     private float speed = 16.0f;
     private PlayerController playerControllerscript;
     void Start()
@@ -25,15 +25,15 @@ public class MapManager : MonoBehaviour
     }
 
     void DestroyRange()
-    {   // Obje kenar (-20.0f) noktasına geldiğinde yok olsun.
-        if(transform.position.z < kenar)
+    {   // When the object reaches the bound (-20.0f) point, let it disappear.
+        if (transform.position.z < bound)
         {
             Destroy(gameObject);
         }
     }
     void MoveForward()
-    {   // Oyun devam ettiği sürece Obje speed değişkeni ile çarpılacak şekilde vektörel hareket yapsın.
-        if(playerControllerscript.gameOver == false)
+    {   // During the game, the object should move with vector motion, being multiplied by the 'speed' variable
+        if (playerControllerscript.gameOver == false)
         {
             transform.Translate(Vector3.left * Time.deltaTime* speed);
         }

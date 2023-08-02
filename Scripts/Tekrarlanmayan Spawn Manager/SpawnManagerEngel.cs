@@ -11,7 +11,7 @@ public class SpawnManagerEngel : MonoBehaviour
 
     void Start()
     {
-playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
 
         Vector3 spawnPos = new Vector3(2.84f,1.34f,spawnPosZ);
         int enemyIndex = Random.Range(0,enemyPrefabs.Length);

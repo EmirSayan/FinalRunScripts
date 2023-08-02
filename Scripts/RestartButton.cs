@@ -18,6 +18,6 @@ public class RestartButton : MonoBehaviour
     }
     public void RestartButtonMethod()
     {
-        SceneManager.LoadScene(0); // Restart butonuna tıklandığında 0. sahneye (Oynanış sahnesine) geri dönsün (Oyun yeniden başlasın)
+        SceneManager.LoadScene(0); // When the Restart button is clicked, it should return to Scene 0 (Gameplay scene) and restart the game.
     }
 }

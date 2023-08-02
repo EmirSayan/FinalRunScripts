@@ -8,14 +8,13 @@ public class SpawnManagerEngeller : MonoBehaviour
     public GameObject[] enemyPrefabs;
     private PlayerController playerControllerScript;
     public float spawnPosZ = 74;
-    private float baslamaZamani = 0.1f;
-    private float tekrarAralıgı = 3.7f;
+    private float startTime = 0.1f;
+    private float repeatTime = 3.7f;
 
     void Start()
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
-        InvokeRepeating("SpawnRandomEngel", baslamaZamani, tekrarAralıgı);
-        // 8.45f i -4.38f
+        InvokeRepeating("SpawnRandomEngel", startTime, repeatTime);
     }
 
     // Update is called once per frame

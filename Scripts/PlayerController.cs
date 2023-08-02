@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource playerrAudio;
     public GameObject bullet;
     private Rigidbody playerRb;
-    private Vector3 mermiMesafe = new Vector3(-0.001f,0.62f,1);
+    private Vector3 bulletVector = new Vector3(-0.001f,0.62f,1);
     void Start()
     {
         Time.timeScale = 1;
@@ -40,34 +40,34 @@ public class PlayerController : MonoBehaviour
         MoveControl();
         xRange();
         
-        if(gameOver == true) // Oyun bittiğinde:
+        if(gameOver == true) // When the game is over
         {
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(-68.507f,0,0), turnSpeed * Time.deltaTime);
-        gameCanvas.SetActive(false); // buttonlar yok olsun, oyun bitti yazısı aktif olsun
-        shotGun.SetActive(false);    // Oyuncunun konumu donsun
-        playerRb.constraints = RigidbodyConstraints.FreezeAll; // Oyuncu hareket edemesin
-        StartCoroutine(ReklamGoster());
+        gameCanvas.SetActive(false); // hide the buttons and display the 'Game Over' message
+        shotGun.SetActive(false);
+        playerRb.constraints = RigidbodyConstraints.FreezeAll; // player cannot move.
+        StartCoroutine(ShowAd());
         }
     }
     
     public void OnCollisionEnter(Collision collision) 
     {
-        if(collision.gameObject.CompareTag("Ground")) // Karakter yere değebildiği sürece zıplayabilsin (havada zıplayamaması için gerekli kod.)
+        if(collision.gameObject.CompareTag("Ground")) // The character should be able to jump as long as it can touch the ground (necessary code to prevent jumping while in the air).
         {
             isOnGround = true;
-        }else if(collision.gameObject.CompareTag("Engel")) // Karakter Engele değdiği zaman oyun bitsin.
+        }else if(collision.gameObject.CompareTag("Engel")) // When the character touches an obstacle, the game should end.
         {
             gameOver = true;
-            Ses();
+            Sound();
             Debug.Log("Engele Çarptın!");
-        }else if(collision.gameObject.CompareTag("Zombie")) // Karakter zombiye değdiği zaman oyun bitsin.
+        }else if(collision.gameObject.CompareTag("Zombie")) // When the character touches an obstacle, the game should end.
         {
             gameOver = true;
-            Ses();
+            Sound();
             Debug.Log("Zombiye Çarptın!");
         }
     }
-    void MoveControl() // Karakter hareketleri.
+    void MoveControl() // Character movement
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-    void xRange() // Karakter sağa sola gidemesin diye yazılmış kod.
+    void xRange() // The character should not be able to pass through certain distances while moving to the right and left.
     {
          if(transform.position.x < -4.38f)
         {
@@ -94,24 +94,24 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(8.45f , transform.position.y , transform.position.z);
         }
     }
-    public void AtesEt() // Ateş etme kodu.
+    public void Fire()
     {
         if(gameOver == false)
         {
-            Instantiate(bullet, gameObject.transform.position + mermiMesafe, gameObject.transform.rotation);
+            Instantiate(bullet, gameObject.transform.position + bulletVector, gameObject.transform.rotation);
         }
     }
 
-    public void Zipla() // Zıplama kodu.
+    public void Jump()
     {
-        if(isOnGround == true && gameOver == false) // Karakter yerdeyse ve oyun bitmediyse zıplayabilsin.
+        if(isOnGround == true && gameOver == false) // If the character is on the ground and the game is not over, character can jump.
         {
         playerRb.AddForce(Vector3.up * jumpForce , ForceMode.Impulse);
         playerrAudio.PlayOneShot(jumpSound, 5.0f);
         isOnGround = false;
         }
     }
-    public void Ses()
+    public void Sound()
     {
         if(gameOver == true)
         {
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
         gameCanvas.SetActive(true);
         Time.timeScale = 1;
     }
-    IEnumerator ReklamGoster()
+    IEnumerator ShowAd()
     {
         yield return new WaitForSeconds(1.3f);
         gameOverAD = true;

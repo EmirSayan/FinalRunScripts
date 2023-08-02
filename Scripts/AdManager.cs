@@ -8,7 +8,7 @@ public class AdManager : MonoBehaviour
     private BannerView bannerView;
     private InterstitialAd interstitial;
     private PlayerController playerControllerScript;
-    private bool reklamGosterildi = false;
+    private bool adShown = false;
     void Start()
     {
         MobileAds.Initialize(initstatus => {});
@@ -20,17 +20,17 @@ public class AdManager : MonoBehaviour
     {
         if(playerControllerScript.gameOverAD == true)
         {
-            if(reklamGosterildi == false)
+            if(adShown == false)
             {
                 if(this.interstitial.IsLoaded())
                 {
                     this.interstitial.Show();
-                    reklamGosterildi = true;
+                    adShown = true;
                 }
             }
         }    
     }
-    void RequestInterstitialAd() // Geçişli reklam kodu
+    void RequestInterstitialAd()
     {
         string reklamID = "ca-app-pub-4512564738654491/9336634312";
 

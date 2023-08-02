@@ -11,7 +11,7 @@ public class SpawnManagerZombie : MonoBehaviour
 
     void Start()
     {
-playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
 
         Vector3 spawnPos = new Vector3(Random.Range(-4.38f,8.45f),0,spawnPosZ);
         int enemyIndex = Random.Range(0,enemyPrefabs.Length);

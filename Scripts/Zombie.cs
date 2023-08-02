@@ -8,36 +8,20 @@ public class Zombie : MonoBehaviour
     private float speed = 16f;
     public AudioClip hitSound;
     public AudioClip deathSound;
-    public ParticleSystem kanEfekt;
+    public ParticleSystem bloodParticle;
     private PlayerController playerControllerscript;
     private AudioSource hitAudio;
     private AudioSource deathAudio;
-    private float kenar = -10.0f;
-    private Animator zombieAnimasyon;
+    private float bound = -10.0f;
+    private Animator zombieAnimation;
     private BoxCollider boxCollider;
     void Start()
     {
         hitAudio = GetComponent<AudioSource>();
         deathAudio = GetComponent<AudioSource>();
-        zombieAnimasyon  = GetComponent<Animator>();
+        zombieAnimation  = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider>();
         playerControllerscript = GameObject.Find("Player").GetComponent<PlayerController>();
-
-        /*
-        if(scoreScript.scoreMiktari > 1000)
-        {
-            speed = 30;
-            Debug.Log(speed);
-        } else if(scoreScript.scoreMiktari > 2000)
-        {
-            speed = 19;
-            Debug.Log(speed);
-        } else if(scoreScript.scoreMiktari > 3000)
-        {
-            speed = 20;
-            Debug.Log(speed);
-        }
-        */
     }
 
     void Update()
@@ -46,7 +30,7 @@ public class Zombie : MonoBehaviour
         zRange();
         if(playerControllerscript.gameOver == true)
         {
-            zombieAnimasyon.SetBool("Death", true);
+            zombieAnimation.SetBool("Death", true);
         }
     }
     
@@ -54,11 +38,11 @@ public class Zombie : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Bullet"))
         {
-            zombieAnimasyon.SetBool("Death", true);
+            zombieAnimation.SetBool("Death", true);
             boxCollider.isTrigger = true;
             hitAudio.PlayOneShot(hitSound, 0.6f);
             hitAudio.PlayOneShot(deathSound, 0.2f);
-            kanEfekt.Play();
+            bloodParticle.Play();
         }
         if(other.gameObject.CompareTag("Alice"))
         {
@@ -79,7 +63,7 @@ public class Zombie : MonoBehaviour
     }
     void zRange()
     {
-        if(transform.position.z < kenar)
+        if(transform.position.z < bound)
         {
             Destroy(gameObject);
         }

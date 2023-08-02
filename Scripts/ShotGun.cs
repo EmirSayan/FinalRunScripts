@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class ShotGun : MonoBehaviour
 {
-    private Animator playerAnimasyon;
+    private Animator playerAnimation;
     public GameObject player;
     public GameObject bullet;
     public AudioClip fireSound;
-    public ParticleSystem atesEfekt;
+    public ParticleSystem fireParticle;
     private AudioSource playerAudio;
     private PlayerController playerController;
-    private Vector3 mermiMesafe = new Vector3(-0.001f,0.62f,1);
+    private Vector3 bulletVector = new Vector3(-0.001f,0.62f,1);
     private bool anim;
     public float fireRate = 2f;
     public float nextTimeToFire = 0.0f;
     void Start()
     {
-        playerAnimasyon  = GetComponent<Animator>();
+        playerAnimation = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
@@ -27,11 +27,11 @@ public class ShotGun : MonoBehaviour
     {
         if(anim == true)
         {
-            playerAnimasyon.SetBool("Ates", true);
+            playerAnimation.SetBool("Ates", true);
         }
         else if(anim == false)
         {
-            playerAnimasyon.SetBool("Ates", false);
+            playerAnimation.SetBool("Ates", false);
         }
         
     }
@@ -40,15 +40,15 @@ public class ShotGun : MonoBehaviour
         if(Time.time >= nextTimeToFire)
         {
             anim = true;
-            atesEfekt.Play();
+            fireParticle.Play();
             playerAudio.PlayOneShot(fireSound, 0.5f);
-            Instantiate(bullet, player.transform.position + mermiMesafe, player.transform.rotation);
+            Instantiate(bullet, player.transform.position + bulletVector, player.transform.rotation);
             nextTimeToFire = Time.time + fireRate;
-            StartCoroutine(AtesSuresi());
+            StartCoroutine(FireRate());
         }
     }
 
-    IEnumerator AtesSuresi()
+    IEnumerator FireRate()
     {
         yield return new WaitForSeconds(0.7f);
         anim = false;

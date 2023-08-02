@@ -8,50 +8,50 @@ public class Menu : MonoBehaviour
 {
     public TMP_Text highScore;
     public GameObject canvas;
-    public GameObject NasilOynanirButton;
+    public GameObject howToPlayButton;
     public GameObject cancelButton;
     public GameObject textBack;
-    public GameObject nasilOynanirText;
+    public GameObject howToPlayText;
     public GameObject Credit1;
     public GameObject Credit2;
     public GameObject Credit3;
-    public GameObject oyunYukleniyorYazisi;
+    public GameObject loadingText;
     void Start()
     {
         highScore.text = PlayerPrefs.GetInt("_highScore").ToString();
-        oyunYukleniyorYazisi.SetActive(false);
+        loadingText.SetActive(false);
     }
     public void PlayButton()
-    {   // Play butonuna tıklandığında 1. Sahneye (Oynanış sahnesine) gidilsin.
+    {   // When the Play button is clicked, go to Scene 1 (Gameplay scene)
         SceneManager.LoadScene(1);
-        oyunYukleniyorYazisi.SetActive(true);
+        loadingText.SetActive(true);
     }
     public void MenuButton()
-    {   // Menu butonuna tıklandığında 0. Sahneye (Ana menüye) gidilsin.
+    {   // When the Menu button is clicked, go to Scene 0 (Main Menu)
         SceneManager.LoadScene(0);
     }
 
     public void QuitButton()
-    {   // Quit butonuna tıklandığında oyundan çıkılsın.
+    {   // When the Quit button is clicked, exit the game
         Application.Quit();
     }
-    public void NasilOynanir()
+    public void HowToPlay()
     {
         canvas.SetActive(false);
-        NasilOynanirButton.SetActive(false);
+        howToPlayButton.SetActive(false);
         cancelButton.SetActive(true);
         textBack.SetActive(true);
-        nasilOynanirText.SetActive(true);
+        howToPlayText.SetActive(true);
         Credit1.SetActive(true);
         Credit2.SetActive(true);
         Credit3.SetActive(true);
     }
     public void Cancel()
     {
-        NasilOynanirButton.SetActive(true);
+        howToPlayButton.SetActive(true);
         cancelButton.SetActive(false);
         textBack.SetActive(false);
-        nasilOynanirText.SetActive(false);
+        howToPlayText.SetActive(false);
         canvas.SetActive(true);
         Credit1.SetActive(false);
         Credit2.SetActive(false);

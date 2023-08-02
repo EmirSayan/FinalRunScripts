@@ -5,7 +5,6 @@ using UnityEngine;
 public class BulletMoveForward : MonoBehaviour
 {
     private Score scoreScript;
-    public bool pal = false;
     public float speed = 100.0f;
     void Start()
     {
@@ -17,16 +16,12 @@ public class BulletMoveForward : MonoBehaviour
     {
         MoveForward();
         DestroyBulletRange();
-        if(pal == true)
-        {
-            Debug.Log("pal");
-        }
     }
-    void MoveForward() // Kurşun ateşlendiği an ileri gitsin
+    void MoveForward() 
     {   
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
-    void DestroyBulletRange() // Kurşun z ekseninde 60 ı geçerse yok olsun
+    void DestroyBulletRange()
     {   
         if(transform.position.z > 60)
         {
@@ -35,12 +30,11 @@ public class BulletMoveForward : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other) 
     {
-        if(other.gameObject.CompareTag("Zombie") || other.gameObject.CompareTag("Engel")) // Kurşun Zombiye değdiğinde olacaklar :
+        if(other.gameObject.CompareTag("Zombie") || other.gameObject.CompareTag("Obstacle")) // What happens when the bullet hits a zombie or an obstacle:
         {
             pal = true;
-            Destroy(gameObject);                 // Zombi yok olsun
-            scoreScript.score += 50f;   // Puan 50 artsın
-            
+            Destroy(gameObject); // The zombie or obstacle should disappear.
+            scoreScript.score += 50f;// Increase the score by 50.
         }
     }
 }
